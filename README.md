@@ -37,6 +37,11 @@ sudo systemctl start grafana-server
 ### Initialize influx and telegraf
 If anyone but me is reading ts, j figure it out
 
+### Start telegraf
+```
+sudo systemctl start telegraf
+```
+
 ### Start influx DB(with GUI)
 ```
 influxdb3 serve --mode all,webui   --webui-session-secret local-dev-only   --without-auth  --node-id host01   --cluster-id cluster01   --object-store file   --data-dir ~/.influxdb3
@@ -44,8 +49,3 @@ influxdb3 serve --mode all,webui   --webui-session-secret local-dev-only   --wit
 
 ### Open influx GUI
 [localhost:8181](localhost:8181)
-
-### Start telegraf
-```
-sudo systemctl start telegraf
-```

@@ -1,3 +1,5 @@
+# Temp file for finding serial port
+
 import serial.tools.list_ports
 
 def list_serial_ports():
