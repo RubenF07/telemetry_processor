@@ -52,10 +52,13 @@ def process_line(line, db, sock):
     payload = bytes.fromhex(payload_text.split(":")[1])
 
     signals = db.decode_message(frame_id, payload)
-    line_protocol = to_line_protocol(frame_id, signals)
+    print(signals)
+
+    # Format: can_frame,can_id=0xXX [FIELD_NAME]=[VALUE]
+    line_protocol = to_line_protocol(frame_id, signals, "can_frame")
 
     print(f"BUS {bus_id} | ID 0x{frame_id:X} | {line_protocol.rstrip()}")
-    sock.sendall(line_protocol.encode("utf-8"))  # may raise OSError -> handled by caller
+    sock.sendall(line_protocol.encode("utf-8"))
 
 
 def main():

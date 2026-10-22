@@ -34,8 +34,9 @@ sudo systemctl start grafana-server
 ### Open Grafana
 [localhost:3000](localhost:3000)
 
-### Initialize influx and telegraf
-If anyone but me is reading ts, j figure it out
+### Initialize influx with telegraf
+[Influx](https://docs.influxdata.com/influxdb3/enterprise/install/)
+[Telegraf](https://docs.influxdata.com/telegraf/v1/get-started/)
 
 ### Start telegraf
 ```
@@ -49,3 +50,10 @@ influxdb3 serve --mode all,webui   --webui-session-secret local-dev-only   --wit
 
 ### Open influx GUI
 [localhost:8181](localhost:8181)
+
+
+# Forward with Ngrok:
+```
+ngrok http 3000 --url https://chaffing-subdued-feline.ngrok-free.dev
+```
+(This is just one of my ngrok domains)

@@ -1,0 +1,335 @@
+{
+  "kind": "Panel",
+  "spec": {
+    "id": 7,
+    "title": "Map",
+    "description": "",
+    "links": [],
+    "data": {
+      "kind": "QueryGroup",
+      "spec": {
+        "queries": [
+          {
+            "kind": "PanelQuery",
+            "spec": {
+              "query": {
+                "kind": "DataQuery",
+                "version": "v0",
+                "group": "influxdb",
+                "datasource": {
+                  "name": "dg0g7lsddf08wd"
+                },
+                "spec": {
+                  "policy": "default",
+                  "resultFormat": "table",
+                  "orderByTime": "DESC",
+                  "tags": [],
+                  "groupBy": [
+                    {
+                      "type": "time",
+                      "params": [
+                        "250ms"
+                      ]
+                    },
+                    {
+                      "type": "fill",
+                      "params": [
+                        "none"
+                      ]
+                    }
+                  ],
+                  "select": [
+                    [
+                      {
+                        "type": "field",
+                        "params": [
+                          "GPS_Latitude"
+                        ]
+                      },
+                      {
+                        "type": "mean",
+                        "params": []
+                      },
+                      {
+                        "type": "alias",
+                        "params": [
+                          "latitude"
+                        ]
+                      }
+                    ],
+                    [
+                      {
+                        "type": "field",
+                        "params": [
+                          "GPS_Longitude"
+                        ]
+                      },
+                      {
+                        "type": "mean",
+                        "params": []
+                      },
+                      {
+                        "type": "alias",
+                        "params": [
+                          "longitude"
+                        ]
+                      }
+                    ]
+                  ],
+                  "measurement": "simulated_can_frame",
+                  "limit": 500
+                }
+              },
+              "refId": "Coords",
+              "hidden": false
+            }
+          },
+          {
+            "kind": "PanelQuery",
+            "spec": {
+              "query": {
+                "kind": "DataQuery",
+                "version": "v0",
+                "group": "influxdb",
+                "datasource": {
+                  "name": "dg0g7lsddf08wd"
+                },
+                "spec": {
+                  "policy": "default",
+                  "resultFormat": "table",
+                  "orderByTime": "DESC",
+                  "tags": [],
+                  "groupBy": [
+                    {
+                      "type": "time",
+                      "params": [
+                        "250ms"
+                      ]
+                    },
+                    {
+                      "type": "fill",
+                      "params": [
+                        "none"
+                      ]
+                    }
+                  ],
+                  "select": [
+                    [
+                      {
+                        "type": "field",
+                        "params": [
+                          "GPS_Latitude"
+                        ]
+                      },
+                      {
+                        "type": "mean",
+                        "params": []
+                      },
+                      {
+                        "type": "alias",
+                        "params": [
+                          "latitude"
+                        ]
+                      }
+                    ],
+                    [
+                      {
+                        "type": "field",
+                        "params": [
+                          "GPS_Longitude"
+                        ]
+                      },
+                      {
+                        "type": "mean",
+                        "params": []
+                      },
+                      {
+                        "type": "alias",
+                        "params": [
+                          "longitude"
+                        ]
+                      }
+                    ]
+                  ],
+                  "measurement": "simulated_can_frame",
+                  "limit": 1
+                }
+              },
+              "refId": "Head",
+              "hidden": false
+            }
+          }
+        ],
+        "transformations": [],
+        "queryOptions": {}
+      }
+    },
+    "vizConfig": {
+      "kind": "VizConfig",
+      "group": "geomap",
+      "version": "13.2.2",
+      "spec": {
+        "options": {
+          "view": {
+            "allLayers": false,
+            "id": "fit",
+            "lat": 0,
+            "lon": 0,
+            "noRepeat": false,
+            "zoom": 18,
+            "dashboardVariable": false,
+            "lastOnly": false,
+            "layer": "Head",
+            "padding": 2
+          },
+          "controls": {
+            "showZoom": true,
+            "mouseWheelZoom": true,
+            "showAttribution": false,
+            "showScale": false,
+            "showMeasure": true,
+            "showDebug": false
+          },
+          "tooltip": {
+            "mode": "details"
+          },
+          "layers": [
+            {
+              "type": "route",
+              "name": "Layer 1",
+              "config": {
+                "style": {
+                  "size": {
+                    "fixed": 3,
+                    "min": 2,
+                    "max": 15
+                  },
+                  "color": {
+                    "fixed": "dark-blue"
+                  },
+                  "opacity": 1,
+                  "symbol": {
+                    "mode": "fixed",
+                    "fixed": "img/icons/marker/circle.svg"
+                  },
+                  "symbolAlign": {
+                    "horizontal": "center",
+                    "vertical": "bottom"
+                  },
+                  "textConfig": {
+                    "fontSize": 12,
+                    "textAlign": "center",
+                    "textBaseline": "middle",
+                    "offsetX": 0,
+                    "offsetY": 0
+                  },
+                  "rotation": {
+                    "fixed": 0,
+                    "mode": "mod",
+                    "min": -360,
+                    "max": 360
+                  },
+                  "lineWidth": 2
+                }
+              },
+              "tooltip": true,
+              "filterData": {
+                "id": "byRefId",
+                "options": "Coords"
+              },
+              "layer-tooltip": false,
+              "opacity": 1,
+              "location": {
+                "mode": "auto"
+              }
+            },
+            {
+              "type": "markers",
+              "name": "Head",
+              "config": {
+                "style": {
+                  "size": {
+                    "fixed": 6,
+                    "min": 2,
+                    "max": 15
+                  },
+                  "color": {
+                    "fixed": "red"
+                  },
+                  "opacity": 0.8,
+                  "symbol": {
+                    "mode": "fixed",
+                    "fixed": "img/icons/marker/circle.svg"
+                  },
+                  "symbolAlign": {
+                    "horizontal": "center",
+                    "vertical": "center"
+                  },
+                  "textConfig": {
+                    "fontSize": 12,
+                    "textAlign": "center",
+                    "textBaseline": "middle",
+                    "offsetX": 0,
+                    "offsetY": 0
+                  },
+                  "rotation": {
+                    "fixed": 0,
+                    "mode": "mod",
+                    "min": -360,
+                    "max": 360
+                  }
+                },
+                "showLegend": false
+              },
+              "tooltip": true,
+              "filterData": {
+                "id": "byRefId",
+                "options": "Head"
+              },
+              "layer-tooltip": false,
+              "location": {
+                "mode": "auto"
+              }
+            }
+          ],
+          "basemap": {
+            "type": "osm-standard",
+            "name": "Layer 0",
+            "config": {
+              "theme": "auto",
+              "showLabels": true,
+              "server": "streets"
+            },
+            "noRepeat": false,
+            "opacity": 0.8,
+            "layer-tooltip": false
+          }
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "hideFrom": {
+                "tooltip": false,
+                "viz": false,
+                "legend": false
+              }
+            },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                }
+              ]
+            },
+            "color": {
+              "mode": "continuous-GrYlRd"
+            }
+          },
+          "overrides": []
+        }
+      }
+    }
+  }
+}

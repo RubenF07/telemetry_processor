@@ -1,2 +1,9 @@
 # Virtual environments
 venv/
+
+# Python slop
+__pycache__/
+test.py
+
+# Data files
+*.csv

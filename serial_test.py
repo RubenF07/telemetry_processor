@@ -1,4 +1,5 @@
 # Temp file for finding serial port
+# Author: Cooper
 
 import serial.tools.list_ports
 

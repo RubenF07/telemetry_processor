@@ -19,7 +19,7 @@ def format_field_value(value):
     raise ValueError(f"Unsupported InfluxDB field value: {value!r}")
 
 
-def to_line_protocol(frame_id, signals):
+def to_line_protocol(frame_id, signals, table):
     tags = f"can_id=0x{frame_id:X}"
     fields = ",".join(
         f"{escape_field_key(name)}={format_field_value(value)}"
@@ -27,4 +27,4 @@ def to_line_protocol(frame_id, signals):
     )
     if not fields:
         raise ValueError("Decoded CAN frame contains no signals")
-    return f"can_frame,{tags} {fields}\n"
+    return f"{table},{tags} {fields}\n"
