@@ -1,11 +1,11 @@
 import pandas as pd
 import socket
-from time import sleep
+from time import sleep, time
 from datetime import datetime
 
 from telegraf_format import to_line_protocol
 
-CSV_FILE = "testData4.csv"
+CSV_FILE = "testData4.csv" # Path to CSV
 
 TELEGRAF_HOST = "127.0.0.1"
 TELEGRAF_PORT = 7654
@@ -21,9 +21,10 @@ def open_socket():
             print(f"Connected to Telegraf at {TELEGRAF_HOST}:{TELEGRAF_PORT}")
             return sock
         except OSError as exc:
-            print(f"{time.time()}| Cannot connect to Telegraf: {exc}. Retrying...")
+            print(f"{time()}| Cannot connect to Telegraf: {exc}. Retrying...")
             sleep(RECONNECT_DELAY)
 
+# Helper function for fixing data points before writing
 def alter_data_frame(frame, lastLap):
     if "Lap_Time" in frame and frame["Lap_Time"] == lastLap:
         frame.pop("Lap_Time")
@@ -34,6 +35,8 @@ def main():
 
     # Load the CSV file
     print("Loading CSV file...")
+    # Skip the first 14 rows of the CSV file 
+    # (For MoTeC i2 csv output format)
     df = pd.read_csv(CSV_FILE, skiprows=14, low_memory=False).iloc[1:].astype(float)
     print(f"{len(df)} rows loaded")
 
@@ -49,11 +52,14 @@ def main():
     neg_diff_count = 0
     lastLap = 0
     start_time = datetime.now()
+
+    # Iterate over each row
     for frame in df[key_fields].head(ROWS).to_dict(orient='records'):
         time = frame.pop("Time")
 
         alter_data_frame(frame,lastLap)
 
+        # Print progress
         if time % 10 == 0:
             print(f"Timestamp: {time}s \ {session_len}s")
 
@@ -75,6 +81,7 @@ def main():
 
         sock.sendall(line_protocol.encode("utf-8"))
 
+        # Update last lap time
         if "Lap_Time" in frame:
             lastLap = frame["Lap_Time"]
 
@@ -90,7 +97,7 @@ if __name__ == "__main__":
 
 
 
-# CSV Fields:
+# EV 24 CSV Fields:
     # **Time
     #* G Force Lat
     #* G Force Long

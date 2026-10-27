@@ -6,8 +6,8 @@ import time
 from telegraf_format import to_line_protocol
 
 # Config
-SERIAL_PORT = "COM3"
-BAUD_RATE = 921600  # Microcontroller frequency
+SERIAL_PORT = "COM3" # Different depending on OS - check with 'serial_test.py'
+BAUD_RATE = 921600
 
 TELEGRAF_HOST = "127.0.0.1"
 TELEGRAF_PORT = 7654
@@ -52,12 +52,11 @@ def process_line(line, db, sock):
     payload = bytes.fromhex(payload_text.split(":")[1])
 
     signals = db.decode_message(frame_id, payload)
-    print(signals)
 
     # Format: can_frame,can_id=0xXX [FIELD_NAME]=[VALUE]
     line_protocol = to_line_protocol(frame_id, signals, "can_frame")
 
-    print(f"BUS {bus_id} | ID 0x{frame_id:X} | {line_protocol.rstrip()}")
+    # print(f"BUS {bus_id} | ID 0x{frame_id:X} | {line_protocol.rstrip()}")
     sock.sendall(line_protocol.encode("utf-8"))
 
 
@@ -74,18 +73,21 @@ def main():
                 # Blocks up to `timeout` seconds; no need to poll in_waiting
                 raw = ser.readline()
                 if not raw:
+                    print("Ahead of the game, waiting on serial...")
                     continue
                 line = raw.decode("utf-8", errors="replace").strip()
                 if not line:
                     continue
 
                 try:
+                    # Transform and send can frame
                     process_line(line, db, sock)
                 except (ValueError, KeyError, IndexError, cantools.database.errors.Error) as exc:
                     # Bad line, unknown frame ID, wrong payload length, etc.
                     print(f"Could not parse CAN frame {line!r}: {exc}")
 
             except serial.SerialException as exc:
+                # Serial connection lost
                 print(f"Serial error: {exc}. Reconnecting...")
                 try:
                     ser.close()

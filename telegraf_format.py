@@ -1,9 +1,10 @@
 import math
 
+# Escape special characters
 def escape_field_key(value):
     return str(value).replace("\\", "\\\\").replace(" ", "\\ ").replace(",", "\\,").replace("=", "\\=")
 
-
+# Maps data types with Influx protocol
 def format_field_value(value):
     if isinstance(value, bool):
         return "true" if value else "false"
@@ -18,7 +19,7 @@ def format_field_value(value):
         return f'"{escaped}"'
     raise ValueError(f"Unsupported InfluxDB field value: {value!r}")
 
-
+# Convert a decoded CAN frame to InfluxDB line protocol format
 def to_line_protocol(frame_id, signals, table):
     tags = f"can_id=0x{frame_id:X}"
     fields = ",".join(
