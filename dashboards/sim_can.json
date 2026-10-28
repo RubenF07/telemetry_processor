@@ -5,8 +5,8 @@
     "name": "ad8n9p9",
     "namespace": "default",
     "uid": "154e4469-f09e-490f-870a-0632103b8bb8",
-    "resourceVersion": "1792790964264017",
-    "generation": 47,
+    "resourceVersion": "1793192809425003",
+    "generation": 51,
     "creationTimestamp": "2026-10-14T16:05:31Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "2716997930487808"
@@ -15,7 +15,7 @@
       "grafana.app/createdBy": "user:bfygw1nj9jabkd",
       "grafana.app/saved-from-ui": "Grafana v13.2.2 (1bea008f7e)",
       "grafana.app/updatedBy": "user:bfygw1nj9jabkd",
-      "grafana.app/updatedTimestamp": "2026-10-23T21:29:24Z"
+      "grafana.app/updatedTimestamp": "2026-10-28T13:06:49Z"
     }
   },
   "spec": {
@@ -193,7 +193,7 @@
                         "measurement": "simulated_can_frame",
                         "orderByTime": "ASC",
                         "policy": "default",
-                        "query": "SELECT min(\"Lap_Time\") FROM \"default\".\"simulated_can_frame\"\nWHERE \"Lap_Time\" > 1 AND time > now() - 3h",
+                        "query": "SELECT min(\"Lap_Time\") FROM \"default\".\"simulated_can_frame\"\nWHERE \"Lap_Time\" > 1 AND time > now() - 2h",
                         "rawQuery": true,
                         "resultFormat": "time_series",
                         "select": [
@@ -1289,11 +1289,11 @@
                         "color": "green"
                       },
                       {
-                        "value": 46,
+                        "value": 50,
                         "color": "#EAB839"
                       },
                       {
-                        "value": 55,
+                        "value": 60,
                         "color": "red"
                       }
                     ]
